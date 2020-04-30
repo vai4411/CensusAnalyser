@@ -23,8 +23,7 @@ public class CensusAnalyser {
             int numOfEateries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
             return numOfEateries;
         } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            throw new CensusAnalyserException(TestException.Census.getException());
         }
     }
 }
