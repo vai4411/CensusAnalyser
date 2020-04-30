@@ -17,9 +17,10 @@ public class getBeanBuilder {
             CsvToBean<T> csvToBean = csvToBeanBuilder.build();
             return csvToBean.iterator();
         } catch (RuntimeException e) {
-            throw new CensusAnalyserException(TestException.TYPESET.getException());
-        }catch (Exception e) {
-            throw new CensusAnalyserException(TestException.HEADER.getException());
+            if (csvClass == IndianCensusCSVHeader.class)
+                throw new CensusAnalyserException(TestException.HEADER.getException());
+            else
+                throw new CensusAnalyserException(TestException.TYPESET.getException());
         }
     }
 }

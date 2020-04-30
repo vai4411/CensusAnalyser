@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IndianCensusCSVType {
     @CsvBindByName(column = "State", required = true)
-    public int state;
+    public Integer state;
 
     @Override
     public String toString() {
