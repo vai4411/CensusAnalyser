@@ -85,4 +85,16 @@ public class CensusAnalyserTest {
             Assert.assertEquals(TestException.States.getException(), e.getMessage());
         }
     }
+
+    @Test
+    public void givenIndiaStatesData_WithWrongFileType_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH,IndianCensusCSVType.class,',');
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
+        }
+    }
 }
