@@ -11,15 +11,17 @@ import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
+    public int loadIndiaCensusData(String csvFilePath, Class tClass) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            Iterator<IndiaCensusCSV> censusCSVIterator = getCSVIterator(reader,IndiaCensusCSV.class);
+            Iterator<IndiaCensusCSV> censusCSVIterator = getCSVIterator(reader, tClass);
             Iterable<IndiaCensusCSV> csvIterable = () -> censusCSVIterator;
             int numOfEateries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
             return numOfEateries;
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.Census.getException());
+        }catch (Exception e) {
+            throw new CensusAnalyserException(TestException.TYPESET.getException());
         }
     }
 
