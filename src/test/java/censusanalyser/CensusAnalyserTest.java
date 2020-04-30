@@ -10,6 +10,7 @@ public class CensusAnalyserTest {
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String INDIA_STATES_CSV_FILE_PATH = "./src/test/resources/IndiaStateCode.csv";
 
+    //TC-1.1
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
         try {
@@ -19,6 +20,7 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) { }
     }
 
+    //TC-1.2
     @Test
     public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() {
         try {
@@ -31,6 +33,7 @@ public class CensusAnalyserTest {
         }
     }
 
+    //TC-1.3
     @Test
     public void givenIndiaCensusData_WithWrongFileType_ShouldThrowException() {
         try {
@@ -43,6 +46,7 @@ public class CensusAnalyserTest {
             }
     }
 
+    //TC-1.4
     @Test
     public void givenIndiaCensusData_WithWrongDelimiter_ShouldThrowException() {
         try {
@@ -53,6 +57,7 @@ public class CensusAnalyserTest {
         }
     }
 
+    //TC-1.5
     @Test
     public void givenIndiaCensusData_WithWrongHeader_ShouldThrowException() {
         try {
@@ -65,6 +70,7 @@ public class CensusAnalyserTest {
         }
     }
 
+    //TC-2.1
     @Test
     public void givenIndianStatesCSVFileReturnsCorrectRecords() {
         try {
@@ -74,6 +80,7 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) { }
     }
 
+    //TC-2.2
     @Test
     public void givenIndiaStatesCodeData_WithWrongFile_ShouldThrowException() {
         try {
@@ -86,6 +93,7 @@ public class CensusAnalyserTest {
         }
     }
 
+    //TC-2.3
     @Test
     public void givenIndiaStatesData_WithWrongFileType_ShouldThrowException() {
         try {
@@ -98,6 +106,7 @@ public class CensusAnalyserTest {
         }
     }
 
+    //TC-2.4
     @Test
     public void givenIndiaStatesData_WithWrongDelimiter_ShouldThrowException() {
         try {
@@ -105,6 +114,19 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, IndiaCensusCSV.class,':');
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.DELIMITER.getException(),e.getMessage());
+        }
+    }
+
+    //TC-2.5
+    @Test
+    public void givenIndiaStatesData_WithWrongHeader_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH,IndianCensusCSVHeader.class,',');
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(TestException.HEADER.getException(),e.getMessage());
         }
     }
 }
