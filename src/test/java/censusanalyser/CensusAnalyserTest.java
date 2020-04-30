@@ -97,4 +97,14 @@ public class CensusAnalyserTest {
             Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
         }
     }
+
+    @Test
+    public void givenIndiaStatesData_WithWrongDelimiter_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, IndiaCensusCSV.class,':');
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(TestException.DELIMITER.getException(),e.getMessage());
+        }
+    }
 }
