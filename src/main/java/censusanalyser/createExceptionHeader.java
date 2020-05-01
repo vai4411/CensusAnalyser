@@ -2,7 +2,7 @@ package censusanalyser;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IndianCensusCSVHeader {
+public class createExceptionHeader {
     @CsvBindByName(column = "State Name", required = true)
     public int state;
 }

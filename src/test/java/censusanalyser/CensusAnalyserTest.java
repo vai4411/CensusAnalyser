@@ -40,7 +40,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-                censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndianCensusCSVType.class,',');
+                censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionType.class,',');
             } catch (CensusAnalyserException e) {
                 Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
             }
@@ -64,7 +64,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndianCensusCSVHeader.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionHeader.class,',');
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.HEADER.getException(),e.getMessage());
         }
@@ -75,7 +75,7 @@ public class CensusAnalyserTest {
     public void givenIndianStatesCSVFileReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH);
+            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH,IndianStatesCSV.class,',');
             Assert.assertEquals(37,numOfRecords);
         } catch (CensusAnalyserException e) { }
     }
@@ -87,7 +87,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndianStatesCode(WRONG_CSV_FILE_PATH);
+            censusAnalyser.loadIndianStatesCode(WRONG_CSV_FILE_PATH,IndianStatesCSV.class,',');
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.States.getException(), e.getMessage());
         }
@@ -100,7 +100,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH,IndianCensusCSVType.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionType.class,',');
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
         }
@@ -124,7 +124,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH,IndianCensusCSVHeader.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionHeader.class,',');
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.HEADER.getException(),e.getMessage());
         }

@@ -13,19 +13,21 @@ public class CensusAnalyser {
             if (seperater != ',')
                 throw new CensusAnalyserException(TestException.DELIMITER.getException());
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            getBeanBuilder getBeanBuilder = new getBeanBuilder();
-            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getBeanBuilder(reader, tClass, seperater);
+            getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
+            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass, seperater);
             return getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.Census.getException());
         }
     }
 
-    public int loadIndianStatesCode(String csvFilePath) throws CensusAnalyserException {
+    public int loadIndianStatesCode(String csvFilePath, Class tClass, char seperater) throws CensusAnalyserException {
         try {
+            if (seperater != ',')
+                throw new CensusAnalyserException(TestException.DELIMITER.getException());
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            getBeanBuilder getBeanBuilder = new getBeanBuilder();
-            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getBeanBuilder(reader,IndianStatesCSV.class,',');
+            getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
+            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass, seperater);
             return getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.States.getException());
