@@ -9,13 +9,14 @@ public class CensusAnalyserTest {
     private static final String INDIA_CENSUS_CSV_FILE_PATH = "./src/test/resources/IndiaStateCensusData.csv";
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String INDIA_STATES_CSV_FILE_PATH = "./src/test/resources/IndiaStateCode.csv";
+    private static final String SEPERATOR = "src/test/resources/Sepeartor.csv";
 
     //TC-1.1
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, IndiaCensusCSV.class,',');
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, IndiaCensusCSV.class);
             Assert.assertEquals(29,numOfRecords);
         } catch (CensusAnalyserException e) { }
     }
@@ -27,7 +28,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(WRONG_CSV_FILE_PATH,IndiaCensusCSV.class,',');
+            censusAnalyser.loadIndiaCensusData(WRONG_CSV_FILE_PATH,IndiaCensusCSV.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.Census.getException(),e.getMessage());
         }
@@ -40,7 +41,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-                censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionType.class,',');
+                censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionType.class);
             } catch (CensusAnalyserException e) {
                 Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
             }
@@ -51,7 +52,7 @@ public class CensusAnalyserTest {
     public void givenIndiaCensusData_WithWrongDelimiter_ShouldThrowException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, IndiaCensusCSV.class,':');
+            censusAnalyser.loadIndiaCensusData(SEPERATOR, IndiaCensusCSV.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.DELIMITER.getException(),e.getMessage());
         }
@@ -64,7 +65,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionHeader.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH, createExceptionHeader.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.HEADER.getException(),e.getMessage());
         }
@@ -75,7 +76,7 @@ public class CensusAnalyserTest {
     public void givenIndianStatesCSVFileReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH,IndianStatesCSV.class,',');
+            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH,IndianStatesCSV.class);
             Assert.assertEquals(37,numOfRecords);
         } catch (CensusAnalyserException e) { }
     }
@@ -87,7 +88,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndianStatesCode(WRONG_CSV_FILE_PATH,IndianStatesCSV.class,',');
+            censusAnalyser.loadIndianStatesCode(WRONG_CSV_FILE_PATH,IndianStatesCSV.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.States.getException(), e.getMessage());
         }
@@ -100,7 +101,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionType.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionType.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.TYPESET.getException(),e.getMessage());
         }
@@ -111,7 +112,7 @@ public class CensusAnalyserTest {
     public void givenIndiaStatesData_WithWrongDelimiter_ShouldThrowException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, IndiaCensusCSV.class,':');
+            censusAnalyser.loadIndiaCensusData(SEPERATOR, IndiaCensusCSV.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.DELIMITER.getException(),e.getMessage());
         }
@@ -124,7 +125,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionHeader.class,',');
+            censusAnalyser.loadIndiaCensusData(INDIA_STATES_CSV_FILE_PATH, createExceptionHeader.class);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(TestException.HEADER.getException(),e.getMessage());
         }

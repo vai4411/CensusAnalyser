@@ -8,26 +8,22 @@ import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
-    public int loadIndiaCensusData(String csvFilePath, Class tClass, char seperater) throws CensusAnalyserException {
+    public int loadIndiaCensusData(String csvFilePath, Class tClass) throws CensusAnalyserException {
         try {
-            if (seperater != ',')
-                throw new CensusAnalyserException(TestException.DELIMITER.getException());
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass, seperater);
+            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass);
             return getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.Census.getException());
         }
     }
 
-    public int loadIndianStatesCode(String csvFilePath, Class tClass, char seperater) throws CensusAnalyserException {
+    public int loadIndianStatesCode(String csvFilePath, Class tClass) throws CensusAnalyserException {
         try {
-            if (seperater != ',')
-                throw new CensusAnalyserException(TestException.DELIMITER.getException());
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass, seperater);
+            Iterator<IndiaCensusCSV> censusCSVIterator = getBeanBuilder.getCSVFileIterator(reader, tClass);
             return getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.States.getException());
