@@ -1,5 +1,9 @@
-package censusanalyser;
+package com.bl.demo;
 
+import com.bl.demo.Exception.CensusAnalyserException;
+import com.bl.demo.Exception.TestException;
+import com.bl.demo.Exception.createExceptionHeader;
+import com.bl.demo.Exception.createExceptionType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

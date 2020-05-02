@@ -1,4 +1,4 @@
-package censusanalyser;
+package com.bl.demo;
 
 import com.opencsv.bean.CsvBindByName;
 
