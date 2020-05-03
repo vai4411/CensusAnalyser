@@ -5,7 +5,8 @@ public enum  TestException {
     States("STATES_PATH_IS_INVALID"),
     TYPESET("TYPE_MISMATCH"),
     DELIMITER("DELIMITER_NOT_MATCH"),
-    HEADER("INVALID_HEADER");
+    HEADER("INVALID_HEADER"),
+    DATA("DATA_IS_NOT_PRESENT");
 
     private final String exception;
 
