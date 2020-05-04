@@ -18,10 +18,8 @@ import java.util.List;
 public class CensusAnalyser {
 
     static HashMap<Class, List> map = new HashMap<>();
-    static List<Object> list;
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
-    private int count = 0;
 
     public int loadIndiaCensusData(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
@@ -64,7 +62,7 @@ public class CensusAnalyser {
 
     void sortStateDensityWise() {
         Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.densityPerSqKm);
-        dataSort(comparator,censusCSVList,"Descending");
+        dataSort(comparator,censusCSVList,"Ascending");
     }
 
     void writeStatesPopulationWise_InFile(String filePath) {
