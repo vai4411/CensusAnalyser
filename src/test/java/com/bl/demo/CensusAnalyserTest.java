@@ -166,7 +166,7 @@ public class CensusAnalyserTest {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
-            censusAnalyser.writeStatesPopulationWise_InFile("./src/test/resources/SortedData.json");
+            censusAnalyser.writeStatesPopulationWise_InFile("./src/test/resources/SortedData.json","Population");
         }catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -182,6 +182,17 @@ public class CensusAnalyserTest {
             Assert.assertEquals("Arunachal Pradesh",censusCSV[0].state);
         }catch (CensusAnalyserException e) {
             Assert.assertEquals("",e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenData_SortedStateArea_WriteInJsonFormat() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
+            censusAnalyser.writeStatesPopulationWise_InFile("./src/test/resources/AreaWiseData.json","Area");
+        }catch (CensusAnalyserException e) {
+            e.printStackTrace();
         }
     }
 }

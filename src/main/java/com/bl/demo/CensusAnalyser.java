@@ -65,10 +65,15 @@ public class CensusAnalyser {
         dataSort(comparator,censusCSVList,"Ascending");
     }
 
-    void writeStatesPopulationWise_InFile(String filePath) {
+    void sortStateAreaWise() {
+        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.areaInSqKm);
+        dataSort(comparator,censusCSVList,"Descending");
+    }
+
+    void writeStatesPopulationWise_InFile(String filePath, String parameter) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            new Gson().toJson(printSortedData(censusCSVList,"Population"),fileWriter);
+            new Gson().toJson(printSortedData(censusCSVList,parameter),fileWriter);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -110,8 +115,10 @@ public class CensusAnalyser {
             sortStateCodeWise();
         else if (parameter == "Population")
             sortStatePopulationWise();
-        else
+        else if (parameter == "Density")
             sortStateDensityWise();
+        else
+            sortStateAreaWise();
         String sortedString = new Gson().toJson(list);
         return sortedString;
     }
