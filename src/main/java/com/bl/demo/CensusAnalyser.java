@@ -57,8 +57,13 @@ public class CensusAnalyser {
         dataSort(comparator,statesCSVList,"Ascending");
     }
 
-    void sortStatePopulation() {
+    void sortStatePopulationWise() {
         Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.population);
+        dataSort(comparator,censusCSVList,"Descending");
+    }
+
+    void sortStateDensityWise() {
+        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.densityPerSqKm);
         dataSort(comparator,censusCSVList,"Descending");
     }
 
@@ -73,6 +78,11 @@ public class CensusAnalyser {
         }
     }
 
+    public <T>void swap(ArrayList list, int j, T census2, T census1) {
+        list.set(j, census2);
+        list.set(j + 1, census1);
+    }
+
     public <T>void dataSort(Comparator<T> comparator, ArrayList list, String sort) {
         for (int i=0; i< list.size(); i++){
             for (int j=0; j <list.size()-1; j++) {
@@ -80,14 +90,12 @@ public class CensusAnalyser {
                 T census2 = (T) list.get(j+1);
                 if (sort == "Ascending") {
                     if (comparator.compare(census1, census2) > 0) {
-                        list.set(j, census2);
-                        list.set(j + 1, census1);
+                        swap(list,j,census2,census1);
                     }
                 }
                 else {
                     if (comparator.compare(census1, census2) < 0) {
-                        list.set(j, census2);
-                        list.set(j + 1, census1);
+                        swap(list,j,census2,census1);
                     }
                 }
             }
@@ -102,8 +110,10 @@ public class CensusAnalyser {
             sortStateNameWise();
         else if (parameter == "State Code")
             sortStateCodeWise();
+        else if (parameter == "Population")
+            sortStatePopulationWise();
         else
-            sortStatePopulation();
+            sortStateDensityWise();
         String sortedString = new Gson().toJson(list);
         return sortedString;
     }

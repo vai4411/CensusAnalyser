@@ -171,4 +171,17 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenData_SortedStateDensity_InJsonFormat() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
+            String sortedList = censusAnalyser.printSortedData(censusAnalyser.censusCSVList, "Density");
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedList,IndiaCensusCSV[].class);
+            Assert.assertEquals("Bihar",censusCSV[0].state);
+        }catch (CensusAnalyserException e) {
+            Assert.assertEquals("",e.getMessage());
+        }
+    }
 }
