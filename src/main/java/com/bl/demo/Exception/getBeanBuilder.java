@@ -1,16 +1,19 @@
 package com.bl.demo.Exception;
 
 import com.bl.demo.ICSVBuilder;
+import com.bl.demo.IndiaCensusCSV;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class getBeanBuilder<T> implements ICSVBuilder {
 
-    public Iterator<T> getCSVFileIterator(Reader reader, Class csvClass) {
+    public Iterator getCSVFileIterator(Reader reader, Class csvClass) {
         try {
             return this.getBeanBuilder(reader,csvClass).iterator();
         } catch (RuntimeException e) {

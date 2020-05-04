@@ -9,33 +9,32 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
 
-    List<IndiaCensusCSV> censusCSVList = null;
-    List<IndianStatesCSV> statesCSVList = null;
+    HashMap<Class,List> map = new HashMap<>();
+    List statesCSVList;
+    List censusCSVList;
 
-    public int loadIndiaCensusData(String csvFilePath, Class tClass) throws CensusAnalyserException {
+    public int loadIndiaCensusData(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            censusCSVList = getBeanBuilder.getCSVFileList(reader, tClass);
-            return censusCSVList.size();
+            map.put(IndiaCensusCSV.class,getBeanBuilder.getCSVFileList(reader,csvClass));
+            return map.get(IndiaCensusCSV.class).size();
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.Census.getException());
         }
     }
 
-    public int loadIndianStatesCode(String csvFilePath, Class tClass) throws CensusAnalyserException {
+    public int loadIndianStatesCode(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            statesCSVList = getBeanBuilder.getCSVFileList(reader, tClass);
-            return statesCSVList.size();
+            map.put(IndianStatesCSV.class,getBeanBuilder.getCSVFileList(reader,csvClass));
+            return map.get(IndianStatesCSV.class).size();
         } catch (IOException e) {
             throw new CensusAnalyserException(TestException.States.getException());
         }
