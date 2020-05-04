@@ -6,7 +6,8 @@ public enum  TestException {
     TYPESET("TYPE_MISMATCH"),
     DELIMITER("DELIMITER_NOT_MATCH"),
     HEADER("INVALID_HEADER"),
-    DATA("DATA_IS_NOT_PRESENT");
+    DATA("DATA_IS_NOT_PRESENT"),
+    FILE("FILE_NOT_FOUND");
 
     private final String exception;
 
