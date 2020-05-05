@@ -1,4 +1,4 @@
-package com.bl.demo.Exception;
+package com.bl.demo.exceptions;
 
 import com.opencsv.bean.CsvBindByName;
 

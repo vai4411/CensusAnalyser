@@ -1,4 +1,4 @@
-package com.bl.demo.Exception;
+package com.bl.demo.exceptions;
 
 public enum  TestException {
     Census("CENSUS_PATH_IS_INVALID"),

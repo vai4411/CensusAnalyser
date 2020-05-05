@@ -1,9 +1,11 @@
 package com.bl.demo;
 
-import com.bl.demo.Exception.CensusAnalyserException;
-import com.bl.demo.Exception.TestException;
-import com.bl.demo.Exception.createExceptionHeader;
-import com.bl.demo.Exception.createExceptionType;
+import com.bl.demo.exceptions.CensusAnalyserException;
+import com.bl.demo.exceptions.TestException;
+import com.bl.demo.exceptions.createExceptionHeader;
+import com.bl.demo.exceptions.createExceptionType;
+import com.bl.demo.model.IndiaCensusCSV;
+import com.bl.demo.model.IndianStatesCSV;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
@@ -81,7 +83,7 @@ public class CensusAnalyserTest {
     public void givenIndianStatesCSVFileReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH,IndianStatesCSV.class);
+            int numOfRecords = censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH, IndianStatesCSV.class);
             Assert.assertEquals(37,numOfRecords);
         } catch (CensusAnalyserException e) { }
     }
@@ -137,7 +139,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenData_SortedStateCensus_InJsonFormat() {
+    public void givenData_SortStateCensusNameWise_DisplayStateNames() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
@@ -145,12 +147,11 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedList,IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh",censusCSV[0].state);
         }catch (CensusAnalyserException e) {
-            Assert.assertEquals("",e.getMessage());
         }
     }
 
     @Test
-    public void givenData_SortedStateCodes_InJsonFormat() {
+    public void givenData_SortStateCodesWise_DisplayStateCodes() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndianStatesCode(INDIA_STATES_CSV_FILE_PATH,IndianStatesCSV.class);
@@ -162,18 +163,18 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenData_SortedStatePopulation_WriteInJsonFormat() {
+    public void givenData_SortStatePopulationWise_WriteInJsonFormat() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
             censusAnalyser.writeStatesPopulationWise_InFile("./src/test/resources/SortedData.json","Population");
         }catch (CensusAnalyserException e) {
-            e.printStackTrace();
+            Assert.assertEquals(TestException.FILE.getException(),e.getMessage());
         }
     }
 
     @Test
-    public void givenData_SortedStateDensity_InJsonFormat() {
+    public void givenData_SortStateDensityWise_DisplayStateName() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
@@ -181,18 +182,17 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedList,IndiaCensusCSV[].class);
             Assert.assertEquals("Arunachal Pradesh",censusCSV[0].state);
         }catch (CensusAnalyserException e) {
-            Assert.assertEquals("",e.getMessage());
         }
     }
 
     @Test
-    public void givenData_SortedStateArea_WriteInJsonFormat() {
+    public void givenData_SortStateAreaWise_WriteInJsonFormat() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH,IndiaCensusCSV.class);
             censusAnalyser.writeStatesPopulationWise_InFile("./src/test/resources/AreaWiseData.json","Area");
         }catch (CensusAnalyserException e) {
-            e.printStackTrace();
+            Assert.assertEquals(TestException.FILE.getException(),e.getMessage());
         }
     }
 }

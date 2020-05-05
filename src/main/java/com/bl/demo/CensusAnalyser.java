@@ -1,8 +1,13 @@
 package com.bl.demo;
 
-import com.bl.demo.Exception.CensusAnalyserException;
-import com.bl.demo.Exception.TestException;
-import com.bl.demo.Exception.getBeanBuilder;
+import com.bl.demo.exceptions.CensusAnalyserException;
+import com.bl.demo.exceptions.TestException;
+import com.bl.demo.model.IndiaCensusCSV;
+import com.bl.demo.model.IndianCensusDAO;
+import com.bl.demo.model.IndianStatesCSV;
+import com.bl.demo.model.IndianStatesDAO;
+import com.bl.demo.openCSVBuilder.CSVBuilderFactory;
+import com.bl.demo.openCSVBuilder.ICSVBuilder;
 import com.google.gson.Gson;
 
 import java.io.FileWriter;
@@ -10,22 +15,25 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CensusAnalyser {
 
     static HashMap<Class, List> map = new HashMap<>();
+    static ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<IndianCensusDAO>();
+    static ArrayList<IndianStatesDAO> statesDAOArrayList = new ArrayList<IndianStatesDAO>();
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
 
     public int loadIndiaCensusData(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            map.put(IndiaCensusCSV.class,getBeanBuilder.getCSVFileList(reader,csvClass));
+            ICSVBuilder builder = CSVBuilderFactory.getBuilder();
+            Iterator<IndiaCensusCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
+            while (iterator.hasNext()) {
+                censusDAOArrayList.add(new IndianCensusDAO(iterator.next()));
+            }
+            map.put(IndiaCensusCSV.class, censusDAOArrayList);
             censusCSVList = new ArrayList(map.get(IndiaCensusCSV.class));
             return map.get(IndiaCensusCSV.class).size();
         } catch (IOException e) {
@@ -36,8 +44,12 @@ public class CensusAnalyser {
     public int loadIndianStatesCode(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
-            map.put(IndianStatesCSV.class,getBeanBuilder.getCSVFileList(reader,csvClass));
+            ICSVBuilder builder = CSVBuilderFactory.getBuilder();
+            Iterator<IndianStatesCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
+            while (iterator.hasNext()) {
+                statesDAOArrayList.add(new IndianStatesDAO(iterator.next()));
+            }
+            map.put(IndianStatesCSV.class, statesDAOArrayList);
             statesCSVList = new ArrayList(map.get(IndianStatesCSV.class));
             return map.get(IndianStatesCSV.class).size();
         } catch (IOException e) {
@@ -46,27 +58,27 @@ public class CensusAnalyser {
     }
 
     void sortStateNameWise() {
-        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(census -> census.state);
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(census -> census.state);
         dataSort(comparator,censusCSVList,"Ascending");
     }
 
     void sortStateCodeWise() {
-        Comparator<IndianStatesCSV> comparator = Comparator.comparing(state -> state.stateCode);
+        Comparator<IndianStatesDAO> comparator = Comparator.comparing(state -> state.stateCode);
         dataSort(comparator,statesCSVList,"Ascending");
     }
 
     void sortStatePopulationWise() {
-        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.population);
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.population);
         dataSort(comparator,censusCSVList,"Descending");
     }
 
     void sortStateDensityWise() {
-        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.densityPerSqKm);
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.densityPerSqKm);
         dataSort(comparator,censusCSVList,"Ascending");
     }
 
     void sortStateAreaWise() {
-        Comparator<IndiaCensusCSV> comparator = Comparator.comparing(state -> state.areaInSqKm);
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.areaInSqKm);
         dataSort(comparator,censusCSVList,"Descending");
     }
 

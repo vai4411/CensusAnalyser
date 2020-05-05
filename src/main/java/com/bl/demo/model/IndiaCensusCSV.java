@@ -1,4 +1,4 @@
-package com.bl.demo;
+package com.bl.demo.model;
 
 import com.opencsv.bean.CsvBindByName;
 

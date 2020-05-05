@@ -1,4 +1,4 @@
-package com.bl.demo;
+package com.bl.demo.model;
 
 public class IndianCensusDAO {
     public String state;
