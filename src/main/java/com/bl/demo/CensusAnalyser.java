@@ -16,6 +16,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
 
@@ -30,9 +31,9 @@ public class CensusAnalyser {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder builder = CSVBuilderFactory.getBuilder();
             Iterator<IndiaCensusCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
-            while (iterator.hasNext()) {
-                censusDAOArrayList.add(new IndianCensusDAO(iterator.next()));
-            }
+            Iterable<IndiaCensusCSV> censusIterable = () -> iterator;
+            StreamSupport.stream(censusIterable.spliterator(), false)
+                    .forEach(csvState -> censusDAOArrayList.add(new IndianCensusDAO(csvState)));
             map.put(IndiaCensusCSV.class, censusDAOArrayList);
             censusCSVList = new ArrayList(map.get(IndiaCensusCSV.class));
             return map.get(IndiaCensusCSV.class).size();
@@ -46,9 +47,9 @@ public class CensusAnalyser {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder builder = CSVBuilderFactory.getBuilder();
             Iterator<IndianStatesCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
-            while (iterator.hasNext()) {
-                statesDAOArrayList.add(new IndianStatesDAO(iterator.next()));
-            }
+            Iterable<IndianStatesCSV> censusIterable = () -> iterator;
+            StreamSupport.stream(censusIterable.spliterator(), false)
+                    .forEach(csvState -> statesDAOArrayList.add(new IndianStatesDAO(csvState)));
             map.put(IndianStatesCSV.class, statesDAOArrayList);
             statesCSVList = new ArrayList(map.get(IndianStatesCSV.class));
             return map.get(IndianStatesCSV.class).size();
