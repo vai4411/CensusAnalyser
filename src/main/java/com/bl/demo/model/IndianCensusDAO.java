@@ -2,10 +2,11 @@ package com.bl.demo.model;
 
 public class IndianCensusDAO {
     public String state;
-    public int population;
+    public long population;
     public int densityPerSqKm;
-    public long areaInSqKm;
     public String stateId;
+    public long Population;
+    public long areaInSqKm;
 
     public <T>IndianCensusDAO(IndiaCensusCSV indiaCensusCSV) {
         state = indiaCensusCSV.state;
@@ -17,6 +18,6 @@ public class IndianCensusDAO {
     public <T>IndianCensusDAO(USCensusCSV usCensusCSV) {
         state = usCensusCSV.state;
         stateId = usCensusCSV.StateId;
-        areaInSqKm = usCensusCSV.areaInSqKm;
+        population = usCensusCSV.population;
     }
 }

@@ -21,9 +21,8 @@ public class CensusAnalyser {
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
     static ArrayList usCSVList;
-    private String IndiaCensusCSV;
 
-    public <T>int loadIndiaCensusData(String csvFilePath, Class csvClass, String T) throws CensusAnalyserException {
+    public <T>int loadCensusData(String csvFilePath, Class csvClass, String T) throws CensusAnalyserException {
         try {
             ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<>();
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));

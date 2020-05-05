@@ -11,5 +11,5 @@ public class USCensusCSV {
     public String StateId;
 
     @CsvBindByName(column = "Population", required = true)
-    public long areaInSqKm;
+    public long population;
 }
