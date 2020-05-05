@@ -2,12 +2,10 @@ package com.bl.demo;
 
 import com.bl.demo.exceptions.CensusAnalyserException;
 import com.bl.demo.exceptions.TestException;
-import com.bl.demo.model.IndiaCensusCSV;
-import com.bl.demo.model.IndianCensusDAO;
-import com.bl.demo.model.IndianStatesCSV;
-import com.bl.demo.model.IndianStatesDAO;
+import com.bl.demo.model.*;
 import com.bl.demo.openCSVBuilder.CSVBuilderFactory;
 import com.bl.demo.openCSVBuilder.ICSVBuilder;
+import com.bl.demo.openCSVBuilder.getBeanBuilder;
 import com.google.gson.Gson;
 
 import java.io.FileWriter;
@@ -21,13 +19,13 @@ import java.util.stream.StreamSupport;
 public class CensusAnalyser {
 
     static HashMap<Class, List> map = new HashMap<>();
-    static ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<IndianCensusDAO>();
-    static ArrayList<IndianStatesDAO> statesDAOArrayList = new ArrayList<IndianStatesDAO>();
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
+    static ArrayList usCSVList;
 
     public int loadIndiaCensusData(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
+            ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<>();
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder builder = CSVBuilderFactory.getBuilder();
             Iterator<IndiaCensusCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
@@ -42,8 +40,21 @@ public class CensusAnalyser {
         }
     }
 
+    public int loadUSCensusData(String csvFilePath, Class csvClass) throws CensusAnalyserException {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+            getBeanBuilder getBeanBuilder = CSVBuilderFactory.getBuilder();
+            map.put(USCensusCSV.class, getBeanBuilder.getCSVFileList(reader, csvClass));
+            usCSVList = new ArrayList(map.get(USCensusCSV.class));
+            return map.get(USCensusCSV.class).size();
+        } catch (IOException e) {
+            throw new CensusAnalyserException(TestException.Census.getException());
+        }
+    }
+
     public int loadIndianStatesCode(String csvFilePath, Class csvClass) throws CensusAnalyserException {
         try {
+            ArrayList<IndianStatesDAO> statesDAOArrayList = new ArrayList<>();
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder builder = CSVBuilderFactory.getBuilder();
             Iterator<IndianStatesCSV> iterator = builder.getCSVFileIterator(reader,csvClass);
