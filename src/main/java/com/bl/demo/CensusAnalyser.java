@@ -13,9 +13,9 @@ import static com.bl.demo.SortData.*;
 
 public class CensusAnalyser {
 
-    public int loadCVSData(String csvFilePath, Class csvClass, String T) {
-     if ( T == "IndiaCensusCSV" || T == "USCensusCSV")
-         return LoadData.loadCensusData(csvFilePath,csvClass,T);
+    public int loadCVSData(String csvFilePath, Class csvClass, String csv) {
+     if ( csv == "IndiaCensusCSV" || csv == "USCensusCSV")
+         return LoadData.loadCensusData(csvFilePath,csvClass,csv);
      else
          return LoadData.loadIndianStatesCode(csvFilePath,csvClass);
     }

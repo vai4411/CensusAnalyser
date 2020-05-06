@@ -21,14 +21,14 @@ public class LoadData {
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
 
-    public static  <T>int loadCensusData(String csvFilePath, Class csvClass, String T) throws CensusAnalyserException {
+    public static  <T>int loadCensusData(String csvFilePath, Class csvClass,String csv) throws CensusAnalyserException {
         try {
             ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<>();
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder builder = CSVBuilderFactory.getBuilder();
             Iterator<T> iterator = builder.getCSVFileIterator(reader,csvClass);
             Iterable<T> censusIterable = () -> iterator;
-            if ( T == "IndiaCensusCSV") {
+            if ( csv == "IndiaCensusCSV") {
                 StreamSupport.stream(censusIterable.spliterator(), false)
                         .forEach(csvState -> censusDAOArrayList.add(new IndianCensusDAO((IndiaCensusCSV) csvState)));
             }
