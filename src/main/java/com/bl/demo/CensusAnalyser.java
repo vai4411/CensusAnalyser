@@ -20,7 +20,6 @@ public class CensusAnalyser {
     static HashMap<Class, List> map = new HashMap<>();
     static ArrayList statesCSVList;
     static ArrayList censusCSVList;
-    static ArrayList usCSVList;
 
     public <T>int loadCensusData(String csvFilePath, Class csvClass, String T) throws CensusAnalyserException {
         try {
@@ -82,8 +81,18 @@ public class CensusAnalyser {
         dataSort(comparator,censusCSVList,"Ascending");
     }
 
+    void sortStatePopulationDensityWise() {
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.density);
+        dataSort(comparator,censusCSVList,"Ascending");
+    }
+
     void sortStateAreaWise() {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.areaInSqKm);
+        dataSort(comparator,censusCSVList,"Descending");
+    }
+
+    void sortStateAreaDensityWise() {
+        Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.area);
         dataSort(comparator,censusCSVList,"Descending");
     }
 
@@ -134,8 +143,12 @@ public class CensusAnalyser {
             sortStatePopulationWise();
         else if (parameter == "Density")
             sortStateDensityWise();
-        else
+        else if (parameter == "Area")
             sortStateAreaWise();
+        else if (parameter == "Us Area")
+            sortStateAreaDensityWise();
+        else
+            sortStatePopulationDensityWise();
         String sortedString = new Gson().toJson(list);
         return sortedString;
     }

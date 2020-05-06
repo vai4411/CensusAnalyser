@@ -4,9 +4,9 @@ public class IndianCensusDAO {
     public String state;
     public long population;
     public int densityPerSqKm;
-    public String stateId;
-    public long Population;
     public long areaInSqKm;
+    public double density;
+    public double area;
 
     public <T>IndianCensusDAO(IndiaCensusCSV indiaCensusCSV) {
         state = indiaCensusCSV.state;
@@ -16,8 +16,9 @@ public class IndianCensusDAO {
     }
 
     public <T>IndianCensusDAO(USCensusCSV usCensusCSV) {
-        state = usCensusCSV.state;
-        stateId = usCensusCSV.StateId;
+        density = usCensusCSV.density;
+        area = usCensusCSV.area;
         population = usCensusCSV.population;
+        state = usCensusCSV.state;
     }
 }
