@@ -4,9 +4,6 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IndianStatesCSV {
 
-    @CsvBindByName(column = "SrNo", required = true)
-    public int srNo;
-
     @CsvBindByName(column = "TIN", required = true)
     public int tin;
 
