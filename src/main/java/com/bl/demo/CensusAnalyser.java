@@ -13,9 +13,9 @@ import static com.bl.demo.SortData.*;
 
 public class CensusAnalyser {
 
-    public int loadCVSData(String csvFilePath, Class csvClass, String csv) {
+    public int loadCVSData(Class csvClass, String csv, String csvFilePath) {
      if ( csv == "IndiaCensusCSV" || csv == "USCensusCSV")
-         return LoadData.loadCensusData(csvFilePath,csvClass,csv);
+         return LoadData.loadCensusData(csv, csvClass, csvFilePath);
      else
          return LoadData.loadIndianStatesCode(csvFilePath,csvClass);
     }
@@ -36,20 +36,32 @@ public class CensusAnalyser {
         if (list == null || list.size() == 0) {
             throw new CensusAnalyserException(TestException.DATA.getException());
         }
-        if (parameter == "Name")
-            sortStateNameWise();
-        else if (parameter == "State Code")
-            sortStateCodeWise();
-        else if (parameter == "Population")
-            sortStatePopulationWise();
-        else if (parameter == "Density")
-            sortStateDensityWise();
-        else if (parameter == "Area")
-            sortStateAreaWise();
-        else if (parameter == "Us Area")
-            sortStateAreaDensityWise();
-        else
-            sortStatePopulationDensityWise();
+        switch (parameter) {
+            case "Name" :
+                sortStateNameWise();
+                break;
+            case "State Code" :
+                sortStateCodeWise();
+                break;
+            case "Population" :
+                sortStatePopulationWise();
+                break;
+            case "Density" :
+                sortStateDensityWise();
+                break;
+            case "Area" :
+                sortStateAreaWise();
+                break;
+            case "Us Area" :
+                sortStateAreaDensityWise();
+                break;
+            case "Population Density" :
+                sortStatePopulationDensityWise();
+                break;
+            default:
+                System.out.println("Invalid choice...");
+                break;
+        }
         String sortedString = new Gson().toJson(list);
         return sortedString;
     }

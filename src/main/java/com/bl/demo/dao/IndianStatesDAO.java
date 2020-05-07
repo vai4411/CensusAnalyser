@@ -1,4 +1,6 @@
-package com.bl.demo.model;
+package com.bl.demo.dao;
+
+import com.bl.demo.model.IndianStatesCSV;
 
 public class IndianStatesDAO {
     public String stateName;

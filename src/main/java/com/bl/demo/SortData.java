@@ -1,7 +1,7 @@
 package com.bl.demo;
 
-import com.bl.demo.model.IndianCensusDAO;
-import com.bl.demo.model.IndianStatesDAO;
+import com.bl.demo.dao.IndianCensusDAO;
+import com.bl.demo.dao.IndianStatesDAO;
 
 import java.util.ArrayList;
 import java.util.Comparator;

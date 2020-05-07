@@ -1,4 +1,7 @@
-package com.bl.demo.model;
+package com.bl.demo.dao;
+
+import com.bl.demo.model.IndiaCensusCSV;
+import com.bl.demo.model.USCensusCSV;
 
 public class IndianCensusDAO {
     public String state;
@@ -11,8 +14,8 @@ public class IndianCensusDAO {
     public <T>IndianCensusDAO(IndiaCensusCSV indiaCensusCSV) {
         state = indiaCensusCSV.state;
         population = indiaCensusCSV.population;
-        densityPerSqKm = indiaCensusCSV.densityPerSqKm;
-        areaInSqKm = indiaCensusCSV.areaInSqKm;
+        density = indiaCensusCSV.density;
+        area = indiaCensusCSV.area;
     }
 
     public <T>IndianCensusDAO(USCensusCSV usCensusCSV) {
