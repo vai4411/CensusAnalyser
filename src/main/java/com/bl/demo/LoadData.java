@@ -3,7 +3,7 @@ package com.bl.demo;
 import com.bl.demo.dao.IndianCensusDAO;
 import com.bl.demo.dao.IndianStatesDAO;
 import com.bl.demo.exceptions.CensusAnalyserException;
-import com.bl.demo.exceptions.TestException;
+import com.bl.demo.enums.TestException;
 import com.bl.demo.model.*;
 import com.bl.demo.openCSVBuilder.CSVBuilderFactory;
 import com.bl.demo.openCSVBuilder.ICSVBuilder;
@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import static com.bl.demo.constants.CensusAnalyserConstants.INDIAN_CENSUS;
+
 public class LoadData {
     static HashMap<Class, List> map = new HashMap<>();
     static ArrayList statesCSVList;
@@ -27,7 +29,7 @@ public class LoadData {
         try {
             ArrayList<IndianCensusDAO> censusDAOArrayList = new ArrayList<>();
             Iterable censusIterable = (Iterable) iterator(csvClass,csvFilePath);
-            if ( csv == "IndiaCensusCSV") {
+            if ( csv.equals(INDIAN_CENSUS)) {
                 StreamSupport.stream(censusIterable.spliterator(), false)
                         .forEach(csvState -> censusDAOArrayList.add(new IndianCensusDAO((IndiaCensusCSV) csvState)));
             }

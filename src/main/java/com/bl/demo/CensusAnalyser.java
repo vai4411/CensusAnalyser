@@ -1,7 +1,7 @@
 package com.bl.demo;
 
 import com.bl.demo.exceptions.CensusAnalyserException;
-import com.bl.demo.exceptions.TestException;
+import com.bl.demo.enums.TestException;
 import com.google.gson.Gson;
 
 import java.io.FileWriter;
@@ -10,11 +10,13 @@ import java.util.ArrayList;
 
 import static com.bl.demo.LoadData.censusCSVList;
 import static com.bl.demo.SortData.*;
+import static com.bl.demo.constants.CensusAnalyserConstants.INDIAN_CENSUS;
+import static com.bl.demo.constants.CensusAnalyserConstants.US_CENSUS;
 
 public class CensusAnalyser {
 
     public int loadCVSData(Class csvClass, String csv, String csvFilePath) {
-     if ( csv == "IndiaCensusCSV" || csv == "USCensusCSV")
+     if ( csv.equals(INDIAN_CENSUS) || csv.equals(US_CENSUS))
          return LoadData.loadCensusData(csv, csvClass, csvFilePath);
      else
          return LoadData.loadIndianStatesCode(csvFilePath,csvClass);

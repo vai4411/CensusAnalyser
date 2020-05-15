@@ -55,7 +55,7 @@ public class SortData {
             for (int j=0; j <list.size()-1; j++) {
                 T census1 = (T) list.get(j);
                 T census2 = (T) list.get(j+1);
-                if (sort == "Ascending") {
+                if (sort.equals("Ascending")) {
                     if (comparator.compare(census1, census2) > 0) {
                         swap(list,j,census2,census1);
                     }

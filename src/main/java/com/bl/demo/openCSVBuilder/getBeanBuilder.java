@@ -1,7 +1,7 @@
 package com.bl.demo.openCSVBuilder;
 
 import com.bl.demo.exceptions.CensusAnalyserException;
-import com.bl.demo.exceptions.TestException;
+import com.bl.demo.enums.TestException;
 import com.bl.demo.exceptions.createExceptionHeader;
 import com.bl.demo.exceptions.createExceptionType;
 import com.opencsv.bean.CsvToBean;

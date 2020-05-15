@@ -1,4 +1,4 @@
-package com.bl.demo;
+package com.bl.demo.enums;
 
 import com.bl.demo.exceptions.createExceptionHeader;
 import com.bl.demo.exceptions.createExceptionType;
@@ -6,7 +6,7 @@ import com.bl.demo.model.IndiaCensusCSV;
 import com.bl.demo.model.IndianStatesCSV;
 import com.bl.demo.model.USCensusCSV;
 
-public enum AnalyserDTO {
+public enum AnalyserClassSet {
     IndianCensus(IndiaCensusCSV.class),
     USCensus(USCensusCSV.class),
     IndianState(IndianStatesCSV.class),
@@ -15,7 +15,7 @@ public enum AnalyserDTO {
 
     private Class className;
 
-    AnalyserDTO(Class className) {
+    AnalyserClassSet(Class className) {
         this.className = className;
     }
 
