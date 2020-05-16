@@ -1,25 +1,41 @@
 package com.bl.demo;
 
-import com.bl.demo.exceptions.CensusAnalyserException;
+import com.bl.demo.dao.IndianStatesDAO;
 import com.bl.demo.enums.TestException;
+import com.bl.demo.exceptions.CensusAnalyserException;
+import com.bl.demo.model.IndianStatesCSV;
+import com.bl.demo.openCSVBuilder.CSVBuilderFactory;
+import com.bl.demo.openCSVBuilder.ICSVBuilder;
 import com.google.gson.Gson;
-
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.stream.StreamSupport;
 
-import static com.bl.demo.LoadData.censusCSVList;
+import static com.bl.demo.CensusAdapter.*;
 import static com.bl.demo.SortData.*;
-import static com.bl.demo.constants.CensusAnalyserConstants.INDIAN_CENSUS;
-import static com.bl.demo.constants.CensusAnalyserConstants.US_CENSUS;
 
 public class CensusAnalyser {
 
-    public int loadCVSData(Class csvClass, String csv, String csvFilePath) {
-     if ( csv.equals(INDIAN_CENSUS) || csv.equals(US_CENSUS))
-         return LoadData.loadCensusData(csv, csvClass, csvFilePath);
-     else
-         return LoadData.loadIndianStatesCode(csvFilePath,csvClass);
+    public static <T> ArrayList loadIndianStatesCode(String csvFilePath, Class csvClass) throws CensusAnalyserException {
+        try {
+            ArrayList<IndianStatesDAO> statesDAOArrayList = new ArrayList<>();
+            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+            ICSVBuilder builder = CSVBuilderFactory.getBuilder();
+            Iterator<T> iterator = builder.getCSVFileIterator(reader,csvClass);
+            Iterable<T> censusIterable = () -> iterator;
+           StreamSupport.stream(censusIterable.spliterator(), false)
+                    .forEach(csvState -> statesDAOArrayList.add(new IndianStatesDAO((IndianStatesCSV) csvState)));
+            map.put(csvClass, statesDAOArrayList);
+        censusCSVList = new ArrayList(map.get(csvClass));
+        return censusCSVList;
+        } catch (IOException e) {
+            throw new CensusAnalyserException(TestException.States.getException());
+        }
     }
 
     void writeStatesPopulationWise_InFile(String filePath, String parameter) {
@@ -40,25 +56,25 @@ public class CensusAnalyser {
         }
         switch (parameter) {
             case "Name" :
-                sortStateNameWise();
+                sortStateNameWise(list);
                 break;
             case "State Code" :
-                sortStateCodeWise();
+                sortStateCodeWise(list);
                 break;
             case "Population" :
-                sortStatePopulationWise();
+                sortStatePopulationWise(list);
                 break;
             case "Density" :
-                sortStateDensityWise();
+                sortStateDensityWise(list);
                 break;
             case "Area" :
-                sortStateAreaWise();
+                sortStateAreaWise(list);
                 break;
             case "Us Area" :
-                sortStateAreaDensityWise();
+                sortStateAreaDensityWise(list);
                 break;
             case "Population Density" :
-                sortStatePopulationDensityWise();
+                sortStatePopulationDensityWise(list);
                 break;
             default:
                 System.out.println("Invalid choice...");

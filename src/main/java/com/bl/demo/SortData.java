@@ -6,43 +6,40 @@ import com.bl.demo.dao.IndianStatesDAO;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import static com.bl.demo.LoadData.censusCSVList;
-import static com.bl.demo.LoadData.statesCSVList;
-
 public class SortData {
-    public static void sortStateNameWise() {
+    public static void sortStateNameWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(census -> census.state);
-        dataSort(comparator,censusCSVList,"Ascending");
+        dataSort(comparator,list,"Descending");
     }
 
-    public static void sortStateCodeWise() {
+    public static void sortStateCodeWise(ArrayList list) {
         Comparator<IndianStatesDAO> comparator = Comparator.comparing(state -> state.stateCode);
-        dataSort(comparator,statesCSVList,"Ascending");
+        dataSort(comparator,list,"Ascending");
     }
 
-    public static void sortStatePopulationWise() {
+    public static void sortStatePopulationWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.population);
-        dataSort(comparator,censusCSVList,"Descending");
+        dataSort(comparator,list,"Descending");
     }
 
-    public static void sortStateDensityWise() {
+    public static void sortStateDensityWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.densityPerSqKm);
-        dataSort(comparator,censusCSVList,"Ascending");
+        dataSort(comparator,list,"Ascending");
     }
 
-    public static void sortStatePopulationDensityWise() {
+    public static void sortStatePopulationDensityWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.density);
-        dataSort(comparator,censusCSVList,"Ascending");
+        dataSort(comparator,list,"Ascending");
     }
 
-    public static void sortStateAreaWise() {
+    public static void sortStateAreaWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.areaInSqKm);
-        dataSort(comparator,censusCSVList,"Descending");
+        dataSort(comparator,list,"Descending");
     }
 
-    public static void sortStateAreaDensityWise() {
+    public static void sortStateAreaDensityWise(ArrayList list) {
         Comparator<IndianCensusDAO> comparator = Comparator.comparing(state -> state.area);
-        dataSort(comparator,censusCSVList,"Descending");
+        dataSort(comparator,list,"Descending");
     }
 
     public static <T>void swap(ArrayList list, int j, T census2, T census1) {
